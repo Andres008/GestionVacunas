@@ -2,17 +2,19 @@ package com.GestionVacunas.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
-
 
 /**
  * The persistent class for the gesvac_persona database table.
  * 
  */
 @Entity
-@Table(name="gesvac_persona")
-@NamedQuery(name="GesvacPersona.findAll", query="SELECT g FROM GesvacPersona g")
+@Table(name = "gesvac_persona")
+@NamedQuery(name = "GesvacPersona.findAll", query = "SELECT g FROM GesvacPersona g")
 public class GesvacPersona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -21,25 +23,25 @@ public class GesvacPersona implements Serializable {
 
 	private String apellidos;
 
-	@Column(name="correo_electronico")
+	@Column(name = "correo_electronico")
 	private String correoElectronico;
 
 	private String direcion;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_nacimiento")
+	@Column(name = "fecha_nacimiento")
 	private Date fechaNacimiento;
 
 	private String nombres;
 
 	private String ocupacion;
 
-	//bi-directional many-to-one association to GesvacDosi
-	@OneToMany(mappedBy="gesvacPersona")
+	// bi-directional many-to-one association to GesvacDosi
+	@OneToMany(mappedBy = "gesvacPersona")
 	private List<GesvacDosi> gesvacDosis;
 
-	//bi-directional many-to-one association to GesvacPersonaEnfermedad
-	@OneToMany(mappedBy="gesvacPersona")
+	// bi-directional many-to-one association to GesvacPersonaEnfermedad
+	@OneToMany(mappedBy = "gesvacPersona", cascade = CascadeType.ALL)
 	private List<GesvacPersonaEnfermedad> gesvacPersonaEnfermedads;
 
 	public GesvacPersona() {
@@ -143,6 +145,14 @@ public class GesvacPersona implements Serializable {
 		gesvacPersonaEnfermedad.setGesvacPersona(null);
 
 		return gesvacPersonaEnfermedad;
+	}
+
+	@Override
+	public String toString() {
+		return "GesvacPersona [cedula=" + cedula + ", apellidos=" + apellidos + ", correoElectronico="
+				+ correoElectronico + ", direcion=" + direcion + ", fechaNacimiento=" + fechaNacimiento + ", nombres="
+				+ nombres + ", ocupacion=" + ocupacion + ", gesvacDosis=" + gesvacDosis + ", gesvacPersonaEnfermedads="
+				+ gesvacPersonaEnfermedads + "]";
 	}
 
 }

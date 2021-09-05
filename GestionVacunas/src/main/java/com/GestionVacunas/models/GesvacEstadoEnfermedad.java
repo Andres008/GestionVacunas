@@ -2,6 +2,9 @@ package com.GestionVacunas.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -24,6 +27,7 @@ public class GesvacEstadoEnfermedad implements Serializable {
 
 	//bi-directional many-to-one association to GesvacPersonaEnfermedad
 	@OneToMany(mappedBy="gesvacEstadoEnfermedad")
+	@JsonIgnore
 	private List<GesvacPersonaEnfermedad> gesvacPersonaEnfermedads;
 
 	public GesvacEstadoEnfermedad() {

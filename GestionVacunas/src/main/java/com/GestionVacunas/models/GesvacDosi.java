@@ -2,6 +2,9 @@ package com.GestionVacunas.models;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 
@@ -33,6 +36,7 @@ public class GesvacDosi implements Serializable {
 	//bi-directional many-to-one association to GesvacPersona
 	@ManyToOne
 	@JoinColumn(name="cedula")
+	@JsonIgnore
 	private GesvacPersona gesvacPersona;
 
 	//bi-directional many-to-one association to GesvacVacuna

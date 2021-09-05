@@ -3,6 +3,8 @@ package com.GestionVacunas.models;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the gesvac_persona_enfermedad database table.
@@ -32,6 +34,7 @@ public class GesvacPersonaEnfermedad implements Serializable {
 	//bi-directional many-to-one association to GesvacPersona
 	@ManyToOne
 	@JoinColumn(name="cedula")
+	@JsonIgnore
 	private GesvacPersona gesvacPersona;
 
 	public GesvacPersonaEnfermedad() {
