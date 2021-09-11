@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.GestionVacunas.models.GesvacPersona;
@@ -38,6 +40,25 @@ public class GesvacPersonaController {
 				.forEach(enfermedad -> enfermedad.setGesvacPersona(objGesvacPersona));
 		System.out.println(objGesvacPersona);
 		return gesvacPersonaServices.guardarPersona(objGesvacPersona);
+	}
+	
+	@PutMapping(produces = "application/json")
+	public GesvacPersona actualizarPersona(@RequestBody @Validated GesvacPersona objGesvacPersona) {
+		objGesvacPersona.getGesvacPersonaEnfermedads()
+				.forEach(enfermedad -> enfermedad.setGesvacPersona(objGesvacPersona));
+		System.out.println(objGesvacPersona);
+		return gesvacPersonaServices.guardarPersona(objGesvacPersona);
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE)
+	public boolean eliminarPersona(@RequestBody @Validated GesvacPersona objGesvacPersona) {
+		try {
+			gesvacPersonaServices.elminarPersona(objGesvacPersona);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	  
 	}
 
 }
